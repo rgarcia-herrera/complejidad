@@ -10,23 +10,15 @@ to setup
 end
 
 
-to poligono [sides l]
-  repeat sides [
-    fd l
-    rt 360 / sides
-  ]
-end
-
-
 
 to go
 
   ask turtles [
+    set heading mean [heading] of turtles in-radius random 3
     ifelse (random 100) < 50
     [rt random 10]
-    [rt random 10]
+    [lt random 10]
     fd 1
-    set heading mean [heading] of turtles in-radius random 9
   ]
 
   tick
