@@ -41,9 +41,9 @@ PLOT
 20
 627
 419
-plot 1
-NIL
-NIL
+poblacion
+tiempo
+población
 0.0
 10.0
 0.0
@@ -435,34 +435,34 @@ NetLogo 6.0.1
 @#$#@#$#@
 1.0
     org.nlogo.sdm.gui.AggregateDrawing 11
-        org.nlogo.sdm.gui.StockFigure "attributes" "attributes" 1 "FillColor" "Color" 225 225 182 201 192 60 40
-            org.nlogo.sdm.gui.WrappedStock "x" "7000" 1
+        org.nlogo.sdm.gui.StockFigure "attributes" "attributes" 1 "FillColor" "Color" 225 225 182 200 215 60 40
+            org.nlogo.sdm.gui.WrappedStock "x" "100" 1
         org.nlogo.sdm.gui.ReservoirFigure "attributes" "attributes" 1 "FillColor" "Color" 192 192 192 84 91 30 30
-        org.nlogo.sdm.gui.RateConnection 3 114 106 230 106 230 180 NULL NULL 0 0 0
+        org.nlogo.sdm.gui.RateConnection 3 99 121 99 199 188 223 NULL NULL 0 0 0
             org.jhotdraw.figures.ChopEllipseConnector REF 3
             org.jhotdraw.standard.ChopBoxConnector REF 1
             org.nlogo.sdm.gui.WrappedRate "a * x" "crecimiento"
                 org.nlogo.sdm.gui.WrappedReservoir  REF 2 0
-        org.nlogo.sdm.gui.ConverterFigure "attributes" "attributes" 1 "FillColor" "Color" 130 188 183 321 77 50 50
+        org.nlogo.sdm.gui.ConverterFigure "attributes" "attributes" 1 "FillColor" "Color" 130 188 183 5 204 50 50
             org.nlogo.sdm.gui.WrappedConverter "0.2" "a"
-        org.nlogo.sdm.gui.BindingConnection 2 325 106 230 106 NULL NULL 0 0 0
+        org.nlogo.sdm.gui.BindingConnection 2 46 220 99 199 NULL NULL 0 0 0
             org.jhotdraw.contrib.ChopDiamondConnector REF 9
             org.nlogo.sdm.gui.ChopRateConnector REF 4
-        org.nlogo.sdm.gui.BindingConnection 2 203 180 230 106 NULL NULL 0 0 0
+        org.nlogo.sdm.gui.BindingConnection 2 188 204 99 199 NULL NULL 0 0 0
             org.jhotdraw.standard.ChopBoxConnector REF 1
             org.nlogo.sdm.gui.ChopRateConnector REF 4
-        org.nlogo.sdm.gui.RateConnection 3 273 214 371 220 470 220 NULL NULL 0 0 0
+        org.nlogo.sdm.gui.RateConnection 3 272 234 358 234 469 227 NULL NULL 0 0 0
             org.jhotdraw.standard.ChopBoxConnector REF 1
             org.jhotdraw.figures.ChopEllipseConnector
-                org.nlogo.sdm.gui.ReservoirFigure "attributes" "attributes" 1 "FillColor" "Color" 192 192 192 469 205 30 30
+                org.nlogo.sdm.gui.ReservoirFigure "attributes" "attributes" 1 "FillColor" "Color" 192 192 192 468 211 30 30
             org.nlogo.sdm.gui.WrappedRate "(a * x) * (x  / k)" "decrecimiento" REF 2
                 org.nlogo.sdm.gui.WrappedReservoir  0   REF 20
-        org.nlogo.sdm.gui.BindingConnection 2 273 213 371 220 NULL NULL 0 0 0
+        org.nlogo.sdm.gui.BindingConnection 2 272 233 358 234 NULL NULL 0 0 0
             org.jhotdraw.standard.ChopBoxConnector REF 1
             org.nlogo.sdm.gui.ChopRateConnector REF 17
-        org.nlogo.sdm.gui.ConverterFigure "attributes" "attributes" 1 "FillColor" "Color" 130 188 183 428 141 50 50
+        org.nlogo.sdm.gui.ConverterFigure "attributes" "attributes" 1 "FillColor" "Color" 130 188 183 391 152 50 50
             org.nlogo.sdm.gui.WrappedConverter "5000" "k"
-        org.nlogo.sdm.gui.BindingConnection 2 437 175 371 220 NULL NULL 0 0 0
+        org.nlogo.sdm.gui.BindingConnection 2 404 190 358 234 NULL NULL 0 0 0
             org.jhotdraw.contrib.ChopDiamondConnector REF 26
             org.nlogo.sdm.gui.ChopRateConnector REF 17
 @#$#@#$#@
