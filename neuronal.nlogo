@@ -15,18 +15,55 @@ globals [
   target-answer
   training-list
   data-file
+  data-list
+  n
 ]
 
 to setup
   ca
 
-  set data-file "funcionPeriodica.txt"
+  set data-file "smooth-f.dat"
+  normalize-data
   ask patches [set pcolor grey]
   set-default-shape turtles "circle"
 
+  set n num-input-nodes + num-output-nodes
+  setup-initial-inputs
   setup-nodes
   setup-links
+
+  propagate
+  recolor
+
   reset-ticks
+end
+
+
+to setup-initial-inputs
+  set training-list []
+  set target-answer []
+
+  set training-list sublist data-list 0 num-input-nodes
+  set target-answer sublist data-list num-input-nodes (num-input-nodes + num-output-nodes)
+
+end
+
+
+to normalize-data
+  file-open data-file
+  let max-dat 0
+  let min-dat 0
+  let delta 0
+  set data-list []
+  while [not file-at-end?] [
+    set data-list lput file-read data-list
+  ]
+  file-close
+  set max-dat max data-list
+  set min-dat min data-list
+  set delta max-dat - min-dat
+
+  set data-list map[[x]-> (x - min-dat) / delta] data-list
 end
 
 
@@ -62,7 +99,7 @@ to setup-nodes
   ]
 
   set j 0
-  create-output-nodes num-input-nodes [
+  create-output-nodes num-output-nodes [
     set xcor max-pxcor - 1
     set ycor initial-y-pos + j * stepY
     set color green
@@ -95,15 +132,133 @@ to connect-all [nodes1 nodes2]
     ]
   ]
 end
+
+
+;; evolución
+to propagate
+  (foreach training-list sort input-nodes [[t i]->
+    ask i [
+      set activation t
+      set label precision activation 2
+    ]
+    ]
+  )
+  let i 1  ; contador de capas internas
+  repeat num-hidden-layers [
+    ask hidden-nodes with [number-of-layer = i] [
+      set activation new-activation
+      set label precision activation 2
+    ]
+    set i i + 1
+  ]
+
+  ask output-nodes [
+    set activation new-activation
+    set label precision activation 2
+  ]
+end
+
+to-report new-activation
+  report sigmoid (sum
+    [weight * [activation] of end1] of my-in-links
+  )
+end
+
+
+to-report sigmoid [x]
+  report 1 / (1 + exp(- x))
+end
+
+
+to recolor
+  ask links [
+    set thickness abs (weight * 0.1)
+    set label precision weight 2
+  ]
+end
+
+
+to backpropagate
+  let example-error 0
+  (foreach target-answer sort output-nodes [
+    [t o]->
+    let answer t
+    ask o [
+      set err activation * (1 - activation) * (answer - activation)
+      set example-error example-error + 0.5 * (answer - activation) ^ 2
+    ]
+    ]
+  )
+  set epoch-error epoch-error + example-error
+
+  let j num-hidden-layers
+
+  repeat num-hidden-layers [
+    ask hidden-nodes with [number-of-layer = j] [
+      set err activation * (1 - activation) * (sum [weight * [err] of end2] of my-out-links)
+    ]
+    set j j - 1
+  ]
+
+  ask links [
+    set weight weight + learning-rate * [err] of end2 * [activation] of end1
+  ]
+  recolor
+end
+
+
+to read-data-at [i]
+  set training-list []
+  set target-answer []
+
+  set training-list sublist data-list i (i + num-input-nodes)
+  set target-answer sublist data-list (i + num-input-nodes) (i + num-input-nodes + num-output-nodes)
+end
+
+
+to train
+  set epoch-error 0
+  repeat example-per-epoch [
+    let i 0
+    repeat length data-list - n [
+      read-data-at i
+      propagate
+      backpropagate
+      set i i + 1
+    ]
+  ]
+  tick
+end
+
+
+to predict
+  plot-pen-reset
+  setup-initial-inputs
+  let s num-input-nodes
+  let l length data-list
+  set-current-plot "predict"
+  set-current-plot-pen "ANN"
+  while [s <= l - num-output-nodes] [
+    propagate
+    foreach sort output-nodes [[o]->
+      ask o [
+        plotxy s activation
+      ]
+      set training-list butfirst training-list
+      set training-list lput ([activation] of o) training-list
+      set s s + 1
+    ]
+  ]
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
 10
-647
-448
+627
+527
 -1
 -1
-13.0
+12.4
 1
 10
 1
@@ -111,12 +266,12 @@ GRAPHICS-WINDOW
 1
 0
 0
-0
+1
 1
 -16
 16
--16
-16
+-20
+20
 0
 0
 1
@@ -132,22 +287,22 @@ num-hidden-layers
 num-hidden-layers
 1
 5
-3.0
+1.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-16
-33
-188
-66
+19
+10
+191
+43
 num-input-nodes
 num-input-nodes
 1
 20
-4.0
+17.0
 1
 1
 NIL
@@ -179,11 +334,146 @@ num-hidden-nodes
 num-hidden-nodes
 1
 20
-7.0
+17.0
 1
 1
 NIL
 HORIZONTAL
+
+SLIDER
+19
+49
+191
+82
+num-output-nodes
+num-output-nodes
+3
+20
+20.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+16
+237
+188
+270
+learning-rate
+learning-rate
+0
+2
+0.713
+0.001
+1
+NIL
+HORIZONTAL
+
+SLIDER
+14
+291
+192
+324
+example-per-epoch
+example-per-epoch
+1
+10
+2.0
+1
+1
+NIL
+HORIZONTAL
+
+PLOT
+672
+17
+872
+167
+error
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot epoch-error"
+
+BUTTON
+94
+481
+157
+514
+NIL
+train
+T
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+PLOT
+675
+182
+986
+345
+training
+NIL
+NIL
+0.0
+10.0
+0.0
+1.0
+true
+false
+"" ""
+PENS
+"pen-0" 1.0 0 -7500403 true "" "plot-pen-reset\nlet j 0\nrepeat length data-list - n [\n  read-data-at j\n  let s j + num-input-nodes\n  propagate\n  foreach sort output-nodes [\n  [o]->\n     plotxy s [activation] of o\n     set s s + 1\n  ]\n  set j j + 1\n]"
+"pen-1" 1.0 0 -2674135 true "let i 0\nforeach data-list [\n[s]->\nplotxy i s\nset i i + 1\n]" ""
+
+PLOT
+678
+351
+986
+526
+predict
+NIL
+NIL
+0.0
+10.0
+0.0
+1.0
+true
+false
+"" ""
+PENS
+"ANN" 1.0 0 -16777216 true "" ""
+"dat" 1.0 0 -955883 true "let i 0\nforeach data-list [\n[s]->\nplotxy i s\nset i i + 1\n]" ""
+
+BUTTON
+73
+429
+148
+462
+NIL
+predict
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
