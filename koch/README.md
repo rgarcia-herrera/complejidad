@@ -6,4 +6,4 @@
 # Curva de Koch para cualquier número de iteraciones y lados, en Python
 
 <img src="pentakoch.png">
-<imt src="pentakoch1.png">
+<img src="pentakoch1.png">
