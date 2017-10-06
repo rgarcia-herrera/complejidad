@@ -1,12 +1,15 @@
 import png
 from colour import Color
 black = Color("black")
+white = Color("white")
 blue = Color("darkblue")
 yellow = Color('yellow')
 green = Color("darkgreen")
-palette = list(blue.range_to(green, 33)) \
-          + list(green.range_to(yellow, 34)) \
-          + list(yellow.range_to(black, 35))
+# palette = list(blue.range_to(yellow, 50)) \
+#           + list(yellow.range_to(green, 40)) \
+#           + list(green.range_to(black, 11))
+
+palette = list(white.range_to(black, 101))
 
 
 class Scale:
