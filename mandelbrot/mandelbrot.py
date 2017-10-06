@@ -1,15 +1,15 @@
 import png
 from colour import Color
-black = Color("black")
+black = Color("red")
 white = Color("white")
-blue = Color("darkblue")
-yellow = Color('yellow')
+blue = Color("black")
+yellow = Color('green')
 green = Color("darkgreen")
-# palette = list(blue.range_to(yellow, 50)) \
-#           + list(yellow.range_to(green, 40)) \
-#           + list(green.range_to(black, 11))
+palette = list(blue.range_to(yellow, 50)) \
+           + list(yellow.range_to(green, 50)) \
+           + list(green.range_to(black, 41))
 
-palette = list(white.range_to(black, 101))
+#palette = list(white.range_to(black, 101))
 
 
 class Scale:
@@ -81,5 +81,5 @@ class Mandelbrot:
             w.write(f, plot)
 
 
-m = Mandelbrot(width=500, height=400)
+m = Mandelbrot(width=500, height=400, depth=140)
 m.plot()
