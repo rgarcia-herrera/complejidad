@@ -1,4 +1,9 @@
 import numpy as np
+import png
+from colour import Color
+red = Color("red")
+blue = Color("blue")
+palette = list(red.range_to(blue, 101))
 
 
 class Scale:
@@ -27,10 +32,6 @@ class Scale:
         return mx * (a - min(self.domain)) + min(self.range)
 
 
-def square(x):
-    return x**2
-
-
 def in_set(x):
     counter = 0
     a = 0
@@ -43,23 +44,27 @@ def in_set(x):
     return counter
 
 
-width = 18
-height = 18
+width = 800
+height = 800
 
 xscale = Scale(domain=[0, width - 1], range=[-2, 1])
 yscale = Scale(domain=[0, height - 1], range=[-1, 1])
 
-a = np.zeros((width, height), dtype=complex)
-plot = np.zeros((width, height), dtype=int)
+colorscale = Scale(domain=[0, 1], range=[0, 255])
+
+plot = []
 
 for i in range(width):
+    row = []
     for j in range(height):
-        a[i][j] = complex(xscale.linear(i), yscale.linear(j))
+        counter = in_set(complex(xscale.linear(i),
+                                 yscale.linear(j)))
+        row += [int(colorscale.linear(c))
+                for c in palette[counter].get_rgb()]
+    plot.append(tuple(row))
 
-print a
-
-for i in range(width):
-    for j in range(height):
-        plot[i][j] = in_set(a[i][j])
 
 print plot
+with open('mandelbrot.png', 'wb') as f:
+    w = png.Writer(height, width)
+    w.write(f, plot)
