@@ -1,10 +1,10 @@
 import numpy as np
 import png
 from colour import Color
-red = Color("red")
-blue = Color("blue")
-palette = list(red.range_to(blue, 101))
-
+blue = Color("black")
+red = Color("darkblue")
+yes = Color("darkgreen")
+palette = list(red.range_to(blue, 50)) + list(blue.range_to(yes, 51))
 
 class Scale:
     """
@@ -44,8 +44,8 @@ def in_set(x):
     return counter
 
 
-width = 800
-height = 800
+width = 1400
+height = 1200
 
 xscale = Scale(domain=[0, width - 1], range=[-2, 1])
 yscale = Scale(domain=[0, height - 1], range=[-1, 1])
@@ -64,7 +64,6 @@ for i in range(width):
     plot.append(tuple(row))
 
 
-print plot
 with open('mandelbrot.png', 'wb') as f:
     w = png.Writer(height, width)
     w.write(f, plot)
