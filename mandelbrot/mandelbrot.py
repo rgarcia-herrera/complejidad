@@ -1,10 +1,13 @@
-import numpy as np
 import png
 from colour import Color
-blue = Color("black")
-red = Color("darkblue")
-yes = Color("darkgreen")
-palette = list(red.range_to(blue, 50)) + list(blue.range_to(yes, 51))
+black = Color("black")
+blue = Color("darkblue")
+yellow = Color('yellow')
+green = Color("darkgreen")
+palette = list(blue.range_to(green, 33)) \
+          + list(green.range_to(yellow, 34)) \
+          + list(yellow.range_to(black, 35))
+
 
 class Scale:
     """
@@ -32,38 +35,48 @@ class Scale:
         return mx * (a - min(self.domain)) + min(self.range)
 
 
-def in_set(x):
-    counter = 0
-    a = 0
-    b = 0
-    while (a**2 + b**2) < 4 and counter < 100:
-        aux = a
-        a = a ** 2 - b ** 2 + x.real
-        b = 2 * aux * b + x.imag
-        counter += 1
-    return counter
+class Mandelbrot:
+
+    def in_set(self, x):
+        counter = 0
+        a = 0
+        b = 0
+        while (a**2 + b**2) < 4 and counter < self.depth:
+            aux = a
+            a = a ** 2 - b ** 2 + x.real
+            b = 2 * aux * b + x.imag
+            counter += 1
+        return counter
+
+    def __init__(self, width=800, height=600, depth=100):
+        self.width = width
+        self.height = height
+
+        self.xscale = Scale(domain=[0, width - 1], range=[-2, 1])
+        self.yscale = Scale(domain=[0, height - 1], range=[-1, 1])
+
+        self.colorscale = Scale(domain=[0, 1],
+                                range=[0, 255])
+
+        self.depth = depth
+
+    def plot(self, filename='mandelbrot.png'):
+        plot = []
+
+        for i in range(self.height):
+            row = []
+            for j in range(self.width):
+                counter = self.in_set(complex(self.xscale.linear(j),
+                                              self.yscale.linear(i)))
+                row += [int(self.colorscale.linear(c))
+                        for c in palette[counter].get_rgb()]
+            plot.append(tuple(row))
+
+        with open(filename, 'wb') as f:
+            w = png.Writer(width=self.width,
+                           height=self.height)
+            w.write(f, plot)
 
 
-width = 1400
-height = 1200
-
-xscale = Scale(domain=[0, width - 1], range=[-2, 1])
-yscale = Scale(domain=[0, height - 1], range=[-1, 1])
-
-colorscale = Scale(domain=[0, 1], range=[0, 255])
-
-plot = []
-
-for i in range(width):
-    row = []
-    for j in range(height):
-        counter = in_set(complex(xscale.linear(i),
-                                 yscale.linear(j)))
-        row += [int(colorscale.linear(c))
-                for c in palette[counter].get_rgb()]
-    plot.append(tuple(row))
-
-
-with open('mandelbrot.png', 'wb') as f:
-    w = png.Writer(height, width)
-    w.write(f, plot)
+m = Mandelbrot(width=500, height=400)
+m.plot()
