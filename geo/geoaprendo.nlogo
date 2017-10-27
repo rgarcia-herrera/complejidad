@@ -82,6 +82,14 @@ to find-neighbors
 end
 
 
+to update-colors
+  ask patches with [id > 0] [
+    gis:set-drawing-color pcolor
+    gis:fill item (id - 1) gis:feature-list-of data 1
+  ]
+end
+
+
 to go
   ask patches with [id != 0] [
     let n count neighborhood with [pcolor != grey]
@@ -100,6 +108,7 @@ to go
     set pcolor grey
   ]
 
+  update-colors
   tick
 end
 @#$#@#$#@
@@ -156,7 +165,7 @@ similar-want
 similar-want
 0
 100
-87.0
+52.0
 1
 1
 NIL
