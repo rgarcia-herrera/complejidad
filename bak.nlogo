@@ -116,8 +116,8 @@ NIL
 PLOT
 683
 11
-1100
-447
+929
+208
 histograma
 avalanche-size
 NIL
@@ -129,7 +129,25 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "histogram avalanche-list"
+"default" 1.0 0 -16777216 true "" "set-plot-x-range 0 max avalanche-list + 1\nhistogram avalanche-list"
+
+PLOT
+685
+227
+1018
+450
+log-log
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "if not empty? avalanche-list [\n   clear-plot\n   set-plot-x-range -1 (ln (max avalanche-list) + 1)\n   let f 0\n   let s item 0 sort avalanche-list\n   foreach sort avalanche-list [ x ->\n     ifelse x = s [\n       set f f + 1\n     ] [\n       plotxy ln s ln f\n       set f 1\n       set s x\n     ]\n   ]\n]"
 
 @#$#@#$#@
 ## WHAT IS IT?
