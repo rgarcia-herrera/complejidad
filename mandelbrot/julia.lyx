@@ -1,0 +1,239 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Fractal de Julia
+\end_layout
+
+\begin_layout Standard
+El conjunto de Julia se genera inicializando un número complejo 
+\begin_inset Formula $z=x+yi$
+\end_inset
+
+ donde 
+\begin_inset Formula $i^{2}=-1$
+\end_inset
+
+, x y y son coordenadas que van desde -2 a 2.
+ Se actualiza el valor de z reiteradamente usando 
+\begin_inset Formula $z=z^{2}+c$
+\end_inset
+
+ donde c es otro número complejo que determina un conjunto específico.
+ Tras numerosas iteraciones, si la magnitud de z está bajo cierto umbral,
+ ese pixel está dentro del conjunto y se colorea.
+\end_layout
+
+\begin_layout Section*
+Relación con el conjunto de Mandelbrot
+\end_layout
+
+\begin_layout Standard
+Ambos fractales se generan con el mismo método.
+ Reiteradamente se usa el parámetro z, se eleva al cuadrado y se suma la
+ constante c.
+ La diferencia está en la forma en la que ambos fractales aplican esa fórmula.
+\end_layout
+
+\begin_layout Standard
+Como z y c son números complejos cada uno tiene dos componentes, lo que
+ da cuatro partes.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+real
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+imaginaria
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+z
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+B
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+c
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+C
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+D
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Si los valores iniciales de z son cero y se grafica usando los componentes
+ de c, o sea fijando A y B en cero y graficando C y D, se obtiene el conjunto
+ de Mandelbrot.
+\end_layout
+
+\begin_layout Standard
+Si se fijan los valores de C y D en cero y se grafica usando A y B se genera
+ un círculo, pero cambiando los valores de C y D y graficando para A y B
+ se generan diferentes conjuntos Julia.
+ El conjunto de Julia es como un corte transversal del conjunto de Mandelbrot.
+\end_layout
+
+\begin_layout Section*
+
+\end_layout
+
+\end_body
+\end_document
