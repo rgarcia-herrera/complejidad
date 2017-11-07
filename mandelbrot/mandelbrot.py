@@ -3,16 +3,21 @@ from colour import Color
 import random
 import numpy as np
 
-black = Color("black")
+red = Color("red")
 white = Color("white")
 blue = Color("blue")
 yellow = Color('yellow')
 green = Color("darkgreen")
+black = Color("black")
 
-palette = list(black.range_to(yellow, 10)) \
-          + list(yellow.range_to(green, 30)) \
-          + list(green.range_to(blue, 30)) \
-          + list(blue.range_to(white, 31))
+# Se crea una paleta con la biblioteca "colour"
+# anexando un rango de colores a otro.
+# Es una lista de tuplas de (r, g, b)
+# la longitud de la paleta debe ser mayor a la profundidad de color del fractal.
+palette = list(blue.range_to(green, 35)) \
+          + list(black.range_to(red, 20)) \
+          + list(blue.range_to(green, 10)) \
+          + list(green.range_to(black, 6))
 
 #palette = list(white.range_to(black, 101))
 
@@ -144,15 +149,17 @@ class Mandelbrot:
             w.write(f, plot)
 
 
-#m = Mandelbrot(width=500, height=400, depth=140)
-#m.plot()
+m = Mandelbrot(width=500, height=400, depth=40)
+m.plot()
 
-i = 0
-for x in np.linspace(-2, 2, 10):
-    n = 0    
-    for y in np.linspace(-1.5, 1.5, 10):
-        j = Julia(c=complex(x, y), width=400, height=400, depth=100)
-        j.plot("julia_%03d_%03d.png" % (n, i))
-        print "julia_%03d_%03d.png" % (n, i)
-        n += 1
-    i += 1
+# Descomentar esto para generar 10 julias
+
+#i = 0
+#for x in np.linspace(-2, 2, 10):
+#    n = 0
+#    for y in np.linspace(-1.5, 1.5, 10):
+#        j = Julia(c=complex(x, y), width=400, height=400, depth=100)
+#        j.plot("julia_%03d_%03d.png" % (n, i))
+#        print "julia_%03d_%03d.png" % (n, i)
+#        n += 1
+#    i += 1
