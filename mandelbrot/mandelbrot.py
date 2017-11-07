@@ -29,8 +29,9 @@ class Scale:
     Intended use::
 
         s = Scale(domain=[1, 100],
-        range=[0, 1])
-        s.linear(50)  # 0.5
+                  range=[0, 1])
+
+        s.linear(50)  # -> 0.5
 
     """
 
@@ -152,7 +153,7 @@ class Mandelbrot:
 m = Mandelbrot(width=500, height=400, depth=40)
 m.plot()
 
-# Descomentar esto para generar 10 julias
+# Descomentar esto para generar julias
 
 #i = 0
 #for x in np.linspace(-2, 2, 10):

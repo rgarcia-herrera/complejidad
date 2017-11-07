@@ -1,6 +1,6 @@
 # Fractales
 
-Acá tenemos una implementacin en NetLogo y otra en Python del fractal de Mandelbrot.
+Acá tenemos una implementación en NetLogo y otra en Python del fractal de Mandelbrot.
 
 <img src="mandelbrot.png">
 
