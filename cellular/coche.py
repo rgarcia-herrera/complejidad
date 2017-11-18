@@ -5,8 +5,7 @@ from time import sleep
 
 def next_gen(universo, rule):
     """
-    Genera un nuevo universo a partir del dado
-    usando la regla de evolucion
+    Genera un nuevo universo usando la regla de evolucion
     """
 
     # copiar el universo a una variable interna de la funcion
