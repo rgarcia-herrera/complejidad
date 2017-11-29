@@ -40,7 +40,7 @@ to reset-curve
   ask patches [
     set pcolor black
   ]
-  import-pcolors "pulmon_hyperoxic.png"
+  import-pcolors "koch_area.png"
   ask patches with [pcolor != black] [
     set pcolor red
   ]
@@ -145,7 +145,7 @@ epsilon
 epsilon
 1
 60
-47.550000000000004
+3.0
 1
 1
 NIL
