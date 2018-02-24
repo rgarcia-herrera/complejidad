@@ -132,7 +132,7 @@ initial-density
 initial-density
 0
 100
-66.0
+62.0
 1
 1
 NIL
@@ -245,7 +245,7 @@ PENS
 @#$#@#$#@
 ## WHAT IS IT?
 
-(a general understanding of what the model is trying to show or explain)
+El Fuego, el fuego, el fuego, el fuego.
 
 ## HOW IT WORKS
 
