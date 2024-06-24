@@ -1,3 +1,6 @@
+Mudé este repo acá:
+<https://codeberg.org/rgarcia-herrera/complejidad>
+
 # Complejidad
 
 Experimentos computacionales de Ciencia de la Complejidad
